@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abrazon - Logística y Distribución</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+:root{
+    --naranja:#ff8c00;
+    --negro:#111;
+    --blanco:#fff;
+    --gris:#f5f5f5;
+}
+
+body{
+    background:var(--blanco);
+    color:var(--negro);
+}
+
+header{
+    background:var(--negro);
+    padding:15px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    height:70px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:var(--naranja);
+}
+
+.hero{
+    background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+    url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d");
+    background-size:cover;
+    background-position:center;
+    min-height:80vh;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:4rem;
+}
+
+.hero span{
+    color:var(--naranja);
+}
+
+.hero p{
+    max-width:700px;
+    margin-top:15px;
+}
+
+.btn{
+    background:var(--naranja);
+    color:white;
+    border:none;
+    padding:15px 30px;
+    margin-top:25px;
+    cursor:pointer;
+    border-radius:8px;
+}
+
+section{
+    padding:70px 8%;
+}
+
+.titulo{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.buscador{
+    display:block;
+    width:100%;
+    max-width:500px;
+    margin:0 auto 40px;
+    padding:15px;
+    border:2px solid var(--naranja);
+    border-radius:10px;
+}
+
+.productos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.producto{
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    background:white;
+}
+
+.producto img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.producto-info{
+    padding:20px;
+}
+
+.precio{
+    color:var(--naranja);
+    font-weight:bold;
+    font-size:1.2rem;
+    margin:10px 0;
+}
+
+.producto button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:var(--negro);
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.producto button:hover{
+    background:var(--naranja);
+}
+
+.carrito{
+    background:var(--gris);
+}
+
+#lista-carrito li{
+    margin:10px 0;
+    list-style:none;
+}
+
+.btn-eliminar{
+    background:red;
+    color:white;
+    border:none;
+    padding:5px 10px;
+    border-radius:5px;
+    margin-left:10px;
+    cursor:pointer;
+}
+
+.total{
+    margin-top:20px;
+    font-size:1.5rem;
+    font-weight:bold;
+}
+
+.tracking{
+    text-align:center;
+}
+
+.tracking input{
+    padding:15px;
+    width:300px;
+    border:2px solid var(--naranja);
+}
+
+.tracking button{
+    padding:15px;
+    border:none;
+    background:var(--naranja);
+    color:white;
+    cursor:pointer;
+}
+
+.estado{
+    margin-top:20px;
+    font-size:1.2rem;
+}
+
+.servicios{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.servicio{
+    background:white;
+    padding:20px;
+    border-left:5px solid var(--naranja);
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+footer{
+    background:black;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+@media(max-width:768px){
+
+header{
+    flex-direction:column;
+}
+
+nav{
+    margin-top:10px;
+}
+
+.hero h1{
+    font-size:2.5rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<img src="img/logo-abrazon.png" class="logo" alt="Abrazon">
+
+<nav>
+<a href="#productos">Productos</a>
+<a href="#carrito">Carrito</a>
+<a href="#seguimiento">Seguimiento</a>
+<a href="#servicios">Servicios</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Bienvenido a <span>Abrazon</span></h1>
+
+<p>
+Compra productos y recibe tus pedidos con el servicio logístico
+más rápido y seguro.
+</p>
+
+<button class="btn" onclick="document.getElementById('productos').scrollIntoView()">
+Comprar Ahora
+</button>
+
+</section>
+
+<section id="productos">
+
+<h2 class="titulo">Productos</h2>
+
+<input
+type="text"
+class="buscador"
+id="busqueda"
+placeholder="Buscar productos..."
+onkeyup="buscarProductos()">
+
+<div class="productos">
+
+<div class="producto">
+<img src="https://picsum.photos/400/300?1">
+<div class="producto-info">
+<h3>Laptop Gamer</h3>
+<p class="precio">$1200</p>
+<button onclick="agregarCarrito('Laptop Gamer',1200)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="https://picsum.photos/400/300?2">
+<div class="producto-info">
+<h3>Smartphone</h3>
+<p class="precio">$800</p>
+<button onclick="agregarCarrito('Smartphone',800)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="https://picsum.photos/400/300?3">
+<div class="producto-info">
+<h3>Televisor 55"</h3>
+<p class="precio">$950</p>
+<button onclick="agregarCarrito('Televisor',950)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="https://picsum.photos/400/300?4">
+<div class="producto-info">
+<h3>Bicicleta</h3>
+<p class="precio">$550</p>
+<button onclick="agregarCarrito('Bicicleta',550)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="https://picsum.photos/400/300?5">
+<div class="producto-info">
+<h3>Silla Gamer</h3>
+<p class="precio">$300</p>
+<button onclick="agregarCarrito('Silla Gamer',300)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="https://picsum.photos/400/300?6">
+<div class="producto-info">
+<h3>Auriculares</h3>
+<p class="precio">$120</p>
+<button onclick="agregarCarrito('Auriculares',120)">Agregar</button>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section class="carrito" id="carrito">
+
+<h2 class="titulo">Carrito de Compras</h2>
+
+<ul id="lista-carrito"></ul>
+
+<h3>Total: $<span id="total">0</span></h3>
+
+</section>
+
+<section class="tracking" id="seguimiento">
+
+<h2 class="titulo">Seguimiento de Envíos</h2>
+
+<input id="guia" placeholder="Número de guía">
+
+<button onclick="rastrear()">Buscar</button>
+
+<div id="estado" class="estado"></div>
+
+</section>
+
+<section id="servicios">
+
+<h2 class="titulo">Servicios</h2>
+
+<div class="servicios">
+
+<div class="servicio">
+<h3>Entrega Express</h3>
+<p>Pedidos en menos de 24 horas.</p>
+</div>
+
+<div class="servicio">
+<h3>Envíos Nacionales</h3>
+<p>Cobertura en todo el país.</p>
+</div>
+
+<div class="servicio">
+<h3>Envíos Internacionales</h3>
+<p>Conexión global para empresas.</p>
+</div>
+
+<div class="servicio">
+<h3>Distribución Empresarial</h3>
+<p>Logística para negocios.</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<h3>ABRAZON</h3>
+
+<p>Logística y Distribución</p>
+
+<p>Proyecto Escolar 2025</p>
+
+</footer>
+
+<script>
+
+let carrito=[];
+
+function agregarCarrito(nombre,precio){
+
+carrito.push({nombre,precio});
+
+actualizarCarrito();
+
+}
+
+function eliminarProducto(index){
+
+carrito.splice(index,1);
+
+actualizarCarrito();
+
+}
+
+function actualizarCarrito(){
+
+let lista=document.getElementById("lista-carrito");
+
+let total=0;
+
+lista.innerHTML="";
+
+carrito.forEach((producto,index)=>{
+
+total+=producto.precio;
+
+lista.innerHTML+=`
+<li>
+${producto.nombre} - $${producto.precio}
+<button class="btn-eliminar"
+onclick="eliminarProducto(${index})">
+Eliminar
+</button>
+</li>
+`;
+
+});
+
+document.getElementById("total").textContent=total;
+
+}
+
+function buscarProductos(){
+
+let texto=document.getElementById("busqueda")
+.value.toLowerCase();
+
+let productos=document.querySelectorAll(".producto");
+
+productos.forEach(producto=>{
+
+let nombre=producto.querySelector("h3")
+.textContent.toLowerCase();
+
+producto.style.display=
+nombre.includes(texto) ? "block" : "none";
+
+});
+
+}
+
+function rastrear(){
+
+let estados=[
+"Pedido recibido",
+"Preparando envío",
+"En tránsito",
+"En reparto",
+"Entregado"
+];
+
+let estado=
+estados[Math.floor(Math.random()*estados.length)];
+
+document.getElementById("estado").innerHTML=
+"<strong>Estado:</strong> "+estado;
+
+}
+
+</script>
+
+</body>
+</html>
